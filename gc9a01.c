@@ -134,7 +134,7 @@ DRAM_ATTR static const lcd_init_cmd_t lcd_init_cmds[]={
     {Cmd_TEON,{0},0},// Tearing effect line on
     {0, {0}, 0xff},//END
 };
-//--------------------------------------------------------------------------------------------------------
+
 //This function is called (in irq context!) just before a transmission starts. It will
 //set the D/C line to the value indicated in the user field.
 static IRAM_ATTR void lcd_spi_pre_transfer_callback(spi_transaction_t *t)
