@@ -1,24 +1,51 @@
 menu "GC9A01 LCD Config"
 
-    config GC9A01_PIN_NUM_DC
-        int "LCD DC(Data or Command) GPIO Pin Number"
-        range 0 34
-        default 21
+    choice GC9A01_SPI_HOST
+        prompt "GC9A01 SPI HOST"
+        default USE_SPI3_HOST
+        help
+            Hardware SPI , HSPI=SPI2 , VSPI=SPI3
+
+        config USE_SPI1_HOST
+            bool "USE SPI1 HOST"
+        config USE_SPI2_HOST
+            bool "USE SPI2 HOST"
+        config USE_SPI3_HOST
+            bool "USE SPI3 HOST"
+        config USE_SPI4_HOST
+            bool "USE SPI4 HOST"
+    endchoice
+
+    config GC9A01_SPI_HOST
+        int
+        default 0 if USE_SPI1_HOST
+        default 1 if USE_SPI2_HOST
+        default 2 if USE_SPI3_HOST
+        default 3 if USE_SPI4_HOST
 
     config GC9A01_PIN_NUM_SCK
         int "LCD SPI SCK Pin"
         range 0 34
         default 18
+        help
+            Must Support SPI SCK
 
     config GC9A01_PIN_NUM_MOSI
         int "LCD SPI MOSI Pin"
         range 0 34
         default 23
+        help
+            Must Support SPI MOSI
 
     config GC9A01_PIN_NUM_CS
         int "LCD SPI CS Pin"
         range 0 34
         default 5
+
+    config GC9A01_PIN_NUM_DC
+        int "LCD DC(Data or Command) GPIO Pin Number"
+        range 0 34
+        default 21
 
     config GC9A01_SPI_SCK_FREQ_M
         int "SPI Clock Freq in MHz"

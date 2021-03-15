@@ -73,7 +73,7 @@ static uint16_t ScreenBuff[GC9A01_Height * GC9A01_Width];
 #endif
 
 spi_device_handle_t spi;
-spi_host_device_t LCD_HOST=SPI3_HOST;//VSPI_HOST;
+spi_host_device_t LCD_HOST=CONFIG_GC9A01_SPI_HOST;
 
 /*
  The LCD needs a bunch of command/argument values to be initialized. They are stored in this struct.
