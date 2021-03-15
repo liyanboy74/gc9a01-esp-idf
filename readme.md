@@ -6,7 +6,7 @@ Clone to `components` folder and run `idf.py menuconfig`
 
 **Add as submodule:**
 
-`git submodule add https://github.com/liyanboy74/gc9a01-esp-idf.git components\gc9a01`
+`git submodule add https://github.com/liyanboy74/gc9a01-esp-idf.git components/gc9a01`
 
 **Example Test:**
 
