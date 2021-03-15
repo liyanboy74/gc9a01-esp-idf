@@ -1,0 +1,55 @@
+menu "GC9A01 LCD Config"
+
+    config GC9A01_PIN_NUM_DC
+        int "LCD DC(Data or Command) GPIO Pin Number"
+        range 0 34
+        default 21
+
+    config GC9A01_PIN_NUM_SCK
+        int "LCD SPI SCK Pin"
+        range 0 34
+        default 18
+
+    config GC9A01_PIN_NUM_MOSI
+        int "LCD SPI MOSI Pin"
+        range 0 34
+        default 23
+
+    config GC9A01_PIN_NUM_CS
+        int "LCD SPI CS Pin"
+        range 0 34
+        default 5
+
+    config GC9A01_SPI_SCK_FREQ_M
+        int "SPI Clock Freq in MHz"
+        range 1 80
+        default 40
+
+    config GC9A01_CONTROL_BACK_LIGHT_USED
+        bool "LCD Control Back Light ON/OFF"
+        default y
+
+    config GC9A01_PIN_NUM_BCKL
+        int "LCD BL(Back Light) GPIO Pin Number"
+        depends on GC9A01_CONTROL_BACK_LIGHT_USED
+        range 0 34
+        default 19
+
+    config GC9A01_RESET_USED
+        bool "GC9A01 RESET Pin Used"
+        default y
+        help
+            Use GC9A01 Hard Reset Pin
+
+    config GC9A01_PIN_NUM_RST
+        int "LCD RST GPIO Pin Number"
+        depends on GC9A01_RESET_USED
+        range 0 34
+        default 22
+
+    config GC9A01_BUFFER_MODE
+        bool "Enable Buffer Mode"
+        default y
+        help
+            Disable for Direct Mode
+endmenu
