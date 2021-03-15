@@ -47,3 +47,5 @@ void app_main(void)
 
 ```
 
+**If you succeed, it's time to go one layer higher! [Try Dispcolor](https://github.com/liyanboy74/dispcolor-esp-idf)**
+
