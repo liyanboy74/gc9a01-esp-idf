@@ -1,5 +1,5 @@
 menu "GC9A01 LCD Config"
-
+    #---------------------------------------------
     choice GC9A01_SPI_HOST
         prompt "GC9A01 SPI HOST"
         default USE_SPI3_HOST
@@ -22,6 +22,7 @@ menu "GC9A01 LCD Config"
         default 1 if USE_SPI2_HOST
         default 2 if USE_SPI3_HOST
         default 3 if USE_SPI4_HOST
+    #---------------------------------------------
 
     config GC9A01_PIN_NUM_SCK
         int "LCD SPI SCK Pin"
@@ -40,7 +41,7 @@ menu "GC9A01 LCD Config"
     config GC9A01_PIN_NUM_CS
         int "LCD SPI CS Pin"
         range 0 34
-        default 5
+        default 05
 
     config GC9A01_PIN_NUM_DC
         int "LCD DC(Data or Command) GPIO Pin Number"
@@ -53,7 +54,7 @@ menu "GC9A01 LCD Config"
         default 40
 
     config GC9A01_CONTROL_BACK_LIGHT_USED
-        bool "LCD Control Back Light ON/OFF"
+        bool "LCD Control Back Light"
         default y
 
     config GC9A01_PIN_NUM_BCKL
@@ -61,6 +62,24 @@ menu "GC9A01 LCD Config"
         depends on GC9A01_CONTROL_BACK_LIGHT_USED
         range 0 34
         default 19
+
+    #---------------------------------------------
+    choice GC9A01_CONTROL_BACK_LIGHT_MODE
+        prompt "GC9A01b Control Back Light Mode"
+        default GC9A01_BACK_LIGHT_MODE_PWM
+        depends on GC9A01_CONTROL_BACK_LIGHT_USED
+
+        config GC9A01_BACK_LIGHT_MODE_On_OFF
+            bool "USE GPIO ON/OF"
+        config GC9A01_BACK_LIGHT_MODE_PWM
+            bool "USE PWM"
+    endchoice
+
+    config GC9A01_CONTROL_BACK_LIGHT_MODE
+        int
+        default 0 if GC9A01_BACK_LIGHT_MODE_On_OFF
+        default 1 if GC9A01_BACK_LIGHT_MODE_PWM
+    #---------------------------------------------
 
     config GC9A01_RESET_USED
         bool "GC9A01 RESET Pin Used"
