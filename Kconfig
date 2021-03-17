@@ -68,6 +68,8 @@ menu "GC9A01 LCD Config"
         prompt "GC9A01b Control Back Light Mode"
         default GC9A01_BACK_LIGHT_MODE_PWM
         depends on GC9A01_CONTROL_BACK_LIGHT_USED
+        help
+            PWM use LEDC_TIMER_0 and LEDC_CHANNEL_0
 
         config GC9A01_BACK_LIGHT_MODE_On_OFF
             bool "USE GPIO ON/OF"
