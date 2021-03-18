@@ -98,7 +98,7 @@ typedef struct {
     uint8_t databytes; //No of data in data; bit 7 = delay after set; 0xFF = end of cmds.
 } lcd_init_cmd_t;
 
-DRAM_ATTR static const lcd_init_cmd_t lcd_init_cmds[]={
+static const lcd_init_cmd_t lcd_init_cmds[]={
     {0xef,{0},0},
     {0xeb,{0x14},1},
     {0xfe,{0},0},
