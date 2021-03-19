@@ -67,9 +67,6 @@
 #define MADCTL_BGR       0x08
 #define MADCTL_MH        0x04
 
-#define GC9A01_Width	240
-#define GC9A01_Height 	240
-
 uint8_t GC9A01_X_Start = 0, GC9A01_Y_Start = 0;
 
 #if (CONFIG_GC9A01_BUFFER_MODE)
@@ -608,3 +605,35 @@ void GC9A01_Init()
 	#endif
 }
 
+#if(CONFIG_GC9A01_BUFFER_MODE)
+void GC9A01_Screen_Shot(uint16_t x,uint16_t y,uint16_t width ,uint16_t height,uint16_t * Buffer)
+{
+	uint16_t i,j;
+	for (i=0;i<height;i++)
+	{
+		for(j=0;j<width;j++)
+		{
+			#if(!CONFIG_GC9A01_BUFFER_SCREEN_FAST_MODE)
+			Buffer[i*width+j]=GC9A01_GetPixel(x+j,y+i);
+			#else
+			Buffer[i*width+j]=ScreenBuff[((y+i) * GC9A01_Width )+ (x+j)];
+			#endif
+		}
+	}
+}
+void GC9A01_Screen_Load(uint16_t x,uint16_t y,uint16_t width ,uint16_t height,uint16_t * Buffer)
+{
+	uint16_t i,j;
+	for (i=0;i<height;i++)
+	{
+		for(j=0;j<width;j++)
+		{
+			#if(!CONFIG_GC9A01_BUFFER_SCREEN_FAST_MODE)
+			GC9A01_DrawPixel(x+j,y+i,Buffer[i*width+j]);
+			#else
+			ScreenBuff[((y+i) * GC9A01_Width )+ (x+j)] = Buffer[i*width+j];
+			#endif
+		}
+	}
+}
+#endif

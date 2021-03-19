@@ -1,4 +1,13 @@
 menu "GC9A01 LCD Config"
+    config GC9A01_Width
+        int "GC9A01 LCD Width"
+        range 64 1024
+        default 240
+
+    config GC9A01_Height
+        int "GC9A01 LCD Height"
+        range 64 1024
+        default 240
     #---------------------------------------------
     choice GC9A01_SPI_HOST
         prompt "GC9A01 SPI HOST"
@@ -100,4 +109,13 @@ menu "GC9A01 LCD Config"
         default y
         help
             Disable for Direct Mode
+
+    config GC9A01_BUFFER_SCREEN_FAST_MODE
+        bool "Don't Convert Buffer for Screen_Load() & Screen_Shot()"
+        default n
+        depends on GC9A01_BUFFER_MODE
+        help
+            If Enabled , the Screen_load() & Screen_Shot() don't run SwapBytes() for Buffer
+            & Direct Save Data to SPI Buffer,So the data must manually SwapBytes before Send to LCD.
+
 endmenu
