@@ -2,7 +2,7 @@
 
 Clone to `components` folder and run `idf.py menuconfig`
 
-![](img/ESP-IDF_menuconfig.jpg)
+![ESP-IDF_menuconfig](https://user-images.githubusercontent.com/64005694/111914456-43582400-8a87-11eb-9173-375262b5a261.jpg)
 
 **Add as submodule:**
 
