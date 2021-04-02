@@ -33,7 +33,6 @@ void LCD(void * arg)
         GC9A01_FillRect(0,0,239,239,Color);
         GC9A01_Update();
         vTaskDelay(1000/portTICK_PERIOD_MS);
-        
     }
 }
 
@@ -47,5 +46,5 @@ void app_main(void)
 
 ```
 
-**If you succeed, it's time to go one layer higher! [Try Dispcolor](https://github.com/liyanboy74/dispcolor)**
+If you succeed, it's time to go one layer higher! Try [Dispcolor](https://github.com/liyanboy74/dispcolor)
 
