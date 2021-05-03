@@ -46,7 +46,6 @@ void app_main(void)
 
 ```
 
-If you succeed, it's time to go one layer higher! Try [Dispcolor](https://github.com/liyanboy74/dispcolor).
-
-You can also use the [BMP24 to RGB565](https://github.com/liyanboy74/bmp24-to-rgb565) tools to convert and display images.
+- If you succeed, it's time to go one layer higher! Try [Dispcolor](https://github.com/liyanboy74/dispcolor)
+- You can also use the [BMP24 to RGB565](https://github.com/liyanboy74/bmp24-to-rgb565) tools to convert and display images
 
