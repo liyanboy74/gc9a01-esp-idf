@@ -70,7 +70,7 @@
 uint8_t GC9A01_X_Start = 0, GC9A01_Y_Start = 0;
 
 #if (CONFIG_GC9A01_BUFFER_MODE)
-static uint16_t ScreenBuff[GC9A01_Height * GC9A01_Width];
+DMA_ATTR uint16_t ScreenBuff[GC9A01_Height * GC9A01_Width];
 #endif
 
 //SPI Config
@@ -186,11 +186,21 @@ void lcd_data(const uint8_t *data, int len)
     spi_transaction_t t;
     if (len==0) return;             //no need to send anything
     memset(&t, 0, sizeof(t));       //Zero out the transaction
-    t.length=len*8;                 //Len is in bytes, transaction length is in bits.
-    t.tx_buffer=data;               //Data
-    t.user=(void*)1;                //D/C needs to be set to 1
-    ret=spi_device_polling_transmit(spi, &t);  //Transmit!
-    assert(ret==ESP_OK);            //Should have had no issues.
+
+    /*
+    On certain MC's the max SPI DMA transfer length might be smaller than the buffer. We then have to split the transmissions.
+    */
+    size_t offset = 0;
+    do {
+        size_t tx_len = ((len - offset) <= SPI_MAX_DMA_LEN) ? (len - offset) : SPI_MAX_DMA_LEN;
+        t.length=tx_len * 8;                       //Len is in bytes, transaction length is in bits.
+        t.tx_buffer= data + offset;                //Data
+        t.user=(void*)1;                           //D/C needs to be set to 1
+        ret=spi_device_polling_transmit(spi, &t);  //Transmit!
+        assert(ret==ESP_OK);                       //Should have had no issues.
+        offset += tx_len;                          // Add the transmission length to the offset
+    }
+    while (len - offset > SPI_MAX_DMA_LEN);
 }
 
 void lcd_send_byte(uint8_t Data)
