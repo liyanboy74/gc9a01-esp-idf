@@ -13,7 +13,7 @@
 #include "driver/ledc.h"
 
 #include "sdkconfig.h"
-#include "GC9A01.h"
+#include "gc9a01.h"
 
 #if (CONFIG_GC9A01_RESET_USED)
 #define RESET_HIGH()           gpio_set_level(CONFIG_GC9A01_PIN_NUM_RST,1)
@@ -502,7 +502,7 @@ void gc9a01_SPI_init(void)
         .pre_cb=lcd_spi_pre_transfer_callback,
     };
 
-    ret=spi_bus_initialize(LCD_HOST,&buscfg,2);
+    ret=spi_bus_initialize(LCD_HOST,&buscfg,SPI_DMA_CH_AUTO);
     ESP_ERROR_CHECK(ret);
 
     ret=spi_bus_add_device(LCD_HOST,&devcfg,&spi);
