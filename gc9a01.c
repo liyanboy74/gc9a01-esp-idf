@@ -453,7 +453,7 @@ void GC9A01_SetBL(uint8_t Value)
 
 	void GC9A01_Update()
 	{
-		uint16_t len = GC9A01_Width * GC9A01_Height;
+		int len = GC9A01_Width * GC9A01_Height;
 		GC9A01_SetWindow(0, 0, GC9A01_Width - 1, GC9A01_Height - 1);
 		lcd_data((uint8_t*) &ScreenBuff[0], len*2);
 	}
