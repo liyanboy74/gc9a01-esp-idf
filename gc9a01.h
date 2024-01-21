@@ -12,6 +12,12 @@ uint16_t GC9A01_GetWidth();
 uint16_t GC9A01_GetHeight();
 
 void GC9A01_Init();
+#if (CONFIG_GC9A01_BUFFER_MODE_PSRAM)
+/**
+ * Frees the PSRAM allocated buffer
+ */
+void GC9A01_Free(void);
+#endif
 void GC9A01_SleepMode(uint8_t Mode);
 void GC9A01_DisplayPower(uint8_t On);
 void GC9A01_DrawPixel(int16_t x, int16_t y, uint16_t color);

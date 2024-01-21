@@ -70,7 +70,13 @@
 uint8_t GC9A01_X_Start = 0, GC9A01_Y_Start = 0;
 
 #if (CONFIG_GC9A01_BUFFER_MODE)
+#if (CONFIG_GC9A01_BUFFER_MODE_PSRAM)
+uint16_t *ScreenBuff = NULL;
+#else
 DMA_ATTR uint16_t ScreenBuff[GC9A01_Height * GC9A01_Width];
+
+#endif
+
 #endif
 
 //SPI Config
@@ -484,6 +490,9 @@ static void gc9a01_GPIO_init(void)
 	gpio_set_level(CONFIG_GC9A01_PIN_NUM_RST,1);
 	#endif
 
+
+
+
 	#if(CONFIG_GC9A01_CONTROL_BACK_LIGHT_USED)
 	#if(!CONFIG_GC9A01_CONTROL_BACK_LIGHT_MODE)
 	gpiocfg.pin_bit_mask|=((uint64_t)1UL<<CONFIG_GC9A01_PIN_NUM_BCKL);
@@ -569,6 +578,13 @@ void GC9A01_Init()
 	GC9A01_X_Start = 0;
 	GC9A01_Y_Start = 0;
 
+    #if (CONFIG_GC9A01_BUFFER_MODE_PSRAM)
+    if (ScreenBuff == NULL) {
+        // ScreenBuffer has not yet been allocated
+        ScreenBuff = heap_caps_malloc((GC9A01_Height * GC9A01_Width) * 2, MALLOC_CAP_SPIRAM | MALLOC_CAP_8BIT );
+    }
+    #endif
+
 	gc9a01_GPIO_init();
 	gc9a01_SPI_init();
 
@@ -616,7 +632,18 @@ void GC9A01_Init()
 	#endif
 }
 
+
 #if(CONFIG_GC9A01_BUFFER_MODE)
+
+#if (CONFIG_GC9A01_BUFFER_MODE_PSRAM)
+void GC9A01_Free(void) {
+    if (ScreenBuff != NULL) {
+        free(ScreenBuff);
+    }
+}
+#endif
+
+
 void GC9A01_Screen_Shot(uint16_t x,uint16_t y,uint16_t width ,uint16_t height,uint16_t * Buffer)
 {
 	uint16_t i,j;
@@ -647,4 +674,5 @@ void GC9A01_Screen_Load(uint16_t x,uint16_t y,uint16_t width ,uint16_t height,ui
 		}
 	}
 }
+
 #endif
