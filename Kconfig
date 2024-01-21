@@ -109,6 +109,13 @@ menu "GC9A01 LCD Config"
         default y
         help
             Disable for Direct Mode
+    config GC9A01_BUFFER_MODE_PSRAM
+        bool "Enable buffer allocation on PSRAM"
+        default n
+        depends on GC9A01_BUFFER_MODE
+        help
+            Allocates Buffer in PSRAM instead of internal
+            Only working for ESP32-S3 family with PSRAM
 
     config GC9A01_BUFFER_SCREEN_FAST_MODE
         bool "Don't Convert Buffer for Screen_Load() & Screen_Shot()"
